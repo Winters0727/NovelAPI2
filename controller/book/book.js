@@ -1,35 +1,69 @@
 const Book = require('../../models/book/book');
 
-const postBook = (req, res, next) => {
-    Product.create({...req.body})
-    .then(
-        product => {
-            res.status(201).json(product)
-        }
-    )
-    .catch(
-        err => {
-            console.error(err)
-            res.status(500).json({'error': err})
-        }
-    )
-}
+const postBook = async (req, res, next) => {
+    try {
+        const book = await Book.create({...req.body});
+        await res.status(201).json(book);
+    }
 
-const getBook = (req, res, next) => {
-    const productId = req.params.productId;
-    Product.findById(productId)
-    .then(
-        product => {
-            res.status(200).json(product)
-        }
-    )
-    .catch(
-        err => {
-            console.error(err)
-            res.status(500).json({'error': err})
-        }
-    )
+    catch(err) {
+        console.error(err);
+        await res.status(500).json({'error': err});
+    }
+};
 
-}
+const getBookAll = async (req, res, next) => {
+    try {
+        const options = req.query;
+        const books = await Book.find(options);
+        await res.status(200).json(books);
+    }
 
-module.exports = { postBook, getBook };
+    catch(err) {
+        console.error(err);
+        await res.status(500).json({'error': err});
+    }
+};
+
+const getBook = async (req, res, next) => {
+    try {
+        const bookId = req.params['bookId'];
+        await Book.findByIdAndUpdate(bookId, {$inc : { clickCount: 1 }});
+        const book = await Book.findById(bookId);
+        await res.status(200).json(book);
+    }
+
+    catch(err) {
+        console.error(err);
+        await res.status(500).json({'error': err});
+    }
+
+};
+
+const updateBook = async (req, res, next) => {
+    try {
+        const bookId = req.params['bookId'];
+        const book = await Book.findByIdAndUpdate(bookId, req.body);
+        await res.status(200).json(book);
+    }
+
+    catch(err) {
+        console.error(err);
+        await res.status(500).json({'error': err});
+    }
+};
+
+const deleteBook = async (req, res, next) => {
+    try {
+        const bookId = req.params['bookId'];
+        await Book.findByIdAndDelete(bookId);
+        await res.status(200);
+    }
+
+    catch(err) {
+        console.error(err);
+        await res.status(500).json({'error': err});
+    }
+};
+
+module.exports = { postBook, getBookAll, getBook, updateBook, deleteBook };

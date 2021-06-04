@@ -16,6 +16,10 @@ const bookSchema = new Schema({
         type: String,
         default: ''
     },
+    clickCount: {
+        type: Number,
+        default: 0
+    },
     createdAt: {
         type: Date,
         required: true,

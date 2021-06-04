@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+// const autoIncrement = require('mongoose-auto-increment');
 
 const Schema = mongoose.Schema;
 
@@ -21,6 +22,11 @@ const reviewSchema = new Schema({
         type: String,
         required: true,
     },
+    viewCount: {
+        type: Number,
+        required: true,
+        default: 0,
+    },
     createdAt: {
         type: Date,
         required: true,
@@ -32,5 +38,12 @@ const reviewSchema = new Schema({
         default: Date.now()
     }
 });
+
+// reviewSchema.plugin(autoIncrement.plugin, {
+//     model: 'Review',
+//     field: 'viewCount',
+//     startAt: 0,
+//     increment: 1,
+// });
 
 module.exports = mongoose.model('Review', reviewSchema);

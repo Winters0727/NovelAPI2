@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const autoIncrement = require('mongoose-auto-increment');
+// const autoIncrement = require('mongoose-auto-increment');
 
 const Schema = mongoose.Schema;
 
@@ -43,11 +43,11 @@ const chapterSchema = new Schema({
     }
 });
 
-chapterSchema.plugin(autoIncrement.plugin, {
-    model: 'Chapter',
-    field: 'viewCount',
-    startAt: 1,
-    increment: 1,
-})
+// chapterSchema.plugin(autoIncrement.plugin, {
+//     model: 'Chapter',
+//     field: 'viewCount',
+//     startAt: 0,
+//     increment: 1,
+// })
 
 module.exports = mongoose.model('Chapter', chapterSchema);

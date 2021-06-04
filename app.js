@@ -26,7 +26,7 @@ app.use(session({
   saveUninitialized: false,
 }));
 
-app.use('/product', productRouter);
+app.use('/api', APIRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
