@@ -1,5 +1,5 @@
 const { hashPassword, comparePassword } = require('../../utils/index');
-const { createToken } = requre('../../utils/jwt');
+const { createToken } = require('../../utils/jwt');
 
 const Author = require('../../models/account/author');
 
@@ -72,7 +72,7 @@ const deleteAuthor = async (req, res, next) => {
 const login = async (req, res, next) => {
     try {
         const { userId, userPassword } = req.body;
-        const author = Author.findOne({ 'userId': userId });
+        const author = await Author.findOne({'userId': userId});
         if (Object.keys(author).length > 0) {
             if (comparePassword(userPassword, author['userPassword'])) {
                 const payload = {
