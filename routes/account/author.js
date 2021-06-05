@@ -1,10 +1,10 @@
-const { postAuthor, getAuthorAll, getAuthor, updateAuthor, deleteAuthor } = require('../../controller/account/author');
+const { postAuthor, getAuthorAll, getAuthor, updateAuthor, deleteAuthor, login, } = require('../../controller/account/author');
 
 const express = require('express');
 const router = express.Router();
 
 router.post('/', postAuthor);
-// router.post('/login', login);
+router.post('/login', login);
 
 router.get('/', getAuthorAll);
 router.get('/:authorId', getAuthor);
